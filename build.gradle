@@ -7,15 +7,23 @@ dependencies {
   compile "org.springframework:spring-jdbc:$springVersion"
   compile "org.springframework.security:spring-security-config:$springSecurityVersion"
   compile "org.springframework.security:spring-security-web:$springSecurityVersion"
-  compile "com.h2database:h2:$h2Version"
   compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
   compile "org.apache.commons:commons-lang3:$commonsLangVersion"
   compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
   compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE"
   compile "org.springframework.ldap:spring-ldap-core:2.0.1.RELEASE"
 
+  compile "org.springframework:spring-context:$springVersion"
+  compile "org.springframework:spring-orm:$springVersion"
+  compile "org.hibernate:hibernate-core:$hibernateVersion"
+  compile "mysql:mysql-connector-java:$mysqlVersion"
+  compile "javax.inject:javax.inject:1"
+  compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
+
   providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
 
+  testCompile "com.h2database:h2:$h2Version"
   testCompile "junit:junit-dep:$junitVersion"
   testCompile "org.springframework:spring-test:$springVersion"
   testCompile "org.mockito:mockito-core:$mockitoVersion"

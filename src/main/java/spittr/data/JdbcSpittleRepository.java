@@ -1,9 +1,14 @@
 package spittr.data;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,57 +19,58 @@ import spittr.entity.Spittle;
 @Repository
 public class JdbcSpittleRepository implements SpittleRepository {
 
-  private JdbcOperations jdbc;
+  private SessionFactory sessionFactory;
 
   @Autowired
-  public JdbcSpittleRepository(JdbcOperations jdbc) {
-    this.jdbc = jdbc;
+  public JdbcSpittleRepository(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
+
+  private Session currentSession() {
+    return sessionFactory.getCurrentSession();//<co id="co_RetrieveCurrentSession"/>
+  }
+
+  public List<Spittle> findAll() {
+    return (List<Spittle>) spittleCriteria().list();
   }
 
   public List<Spittle> findRecentSpittles() {
-    return jdbc.query(
-        "select id, message, created_at, latitude, longitude" +
-        " from Spittle" +
-        " order by created_at desc limit 20",
-        new SpittleRowMapper());
+    return findRecentSpittles(10);
   }
 
-  public List<Spittle> findSpittles(long max, int count) {
-    return jdbc.query(
-        "select id, message, created_at, latitude, longitude" +
-        " from Spittle" +
-        " where id < ?" +
-        " order by created_at desc limit 20",
-        new SpittleRowMapper(), max);
+  public List<Spittle> findRecentSpittles(int count) {
+    return (List<Spittle>) spittleCriteria()
+            .setMaxResults(count)
+            .list();
   }
 
   public Spittle findOne(long id) {
-    return jdbc.queryForObject(
-        "select id, message, created_at, latitude, longitude" +
-        " from Spittle" +
-        " where id = ?",
-        new SpittleRowMapper(), id);
+    return (Spittle) currentSession().get(Spittle.class, id);
   }
 
-  public void save(Spittle spittle) {
-    jdbc.update(
-        "insert into Spittle (message, created_at, latitude, longitude)" +
-        " values (?, ?, ?, ?)",
-        spittle.getMessage(),
-        spittle.getTime(),
-        spittle.getLatitude(),
-        spittle.getLongitude());
+  public Spittle save(Spittle spittle) {
+    Serializable id = currentSession().save(spittle);
+    return new Spittle(
+            (Long) id,
+            spittle.getMessage(),
+            spittle.getTime(),
+            spittle.getLatitude(),
+            spittle.getLongitude());
   }
 
-  private static class SpittleRowMapper implements RowMapper<Spittle> {
-    public Spittle mapRow(ResultSet rs, int rowNum) throws SQLException {
-      return new Spittle(
-          rs.getLong("id"),
-          rs.getString("message"), 
-          rs.getDate("created_at"), 
-          rs.getDouble("longitude"), 
-          rs.getDouble("latitude"));
-    }
+
+  public void delete(long id) {
+    currentSession().delete(findOne(id));
   }
-  
+
+  public long count() {
+    return findAll().size();
+  }
+
+  private Criteria spittleCriteria() {
+    return currentSession()
+            .createCriteria(Spittle.class)
+            .addOrder(Order.desc("time"));
+  }
+
 }

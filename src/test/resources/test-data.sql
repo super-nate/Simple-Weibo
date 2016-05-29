@@ -1,0 +1,20 @@
+insert into Spitter (username, password, first_name, last_name, email) values ('habuma', 'password', 'Craig', 'Walls', 'craig@habuma.com');
+insert into Spitter (username, password, first_name, last_name, email) values ('mwalls', 'password', 'Michael', 'Walls', 'mwalls@habuma.com');
+insert into Spitter (username, password, first_name, last_name, email) values ('chuck', 'password', 'Chuck', 'Wagon', 'chuck@habuma.com');
+insert into Spitter (username, password, first_name, last_name, email) values ('artnames', 'password', 'Art', 'Names', 'art@habuma.com');
+
+insert into Spittle ( message, created_at) values ( 'This is a test spittle message', '2012-06-09 22:00:00Z');
+insert into Spittle ( message, created_at) values ('This is another test spittle message', '2012-06-09 22:10:00Z');
+insert into Spittle ( message, created_at) values ('This is a third test spittle message', '2012-07-04 23:30:00Z');
+insert into Spittle ( message, created_at) values ('Hello from Chuck!', '2012-03-25 12:15:00Z');
+insert into Spittle ( message, created_at) values ('Hello from Art!', '2012-03-25 12:15:00Z');
+insert into Spittle ( message, created_at) values ('Hello again from Art!', '2012-03-25 12:25:00Z');
+insert into Spittle ( message, created_at) values ('Hola from Arthur!', '2012-03-25 12:35:00Z');
+insert into Spittle ( message, created_at) values ('Buenos Dias from Art!', '2012-03-25 12:45:00Z');
+insert into Spittle ( message, created_at) values ('Ni Hao from Art!', '2012-03-25 12:55:00Z');
+insert into Spittle ( message, created_at) values ('Guten Tag from Art!', '2012-03-25 13:05:00Z');
+insert into Spittle ( message, created_at) values ('Konnichi wa from Art!', '2012-03-25 13:15:00Z');
+insert into Spittle ( message, created_at) values ('Buon giorno from Art!', '2012-03-25 13:25:00Z');
+insert into Spittle ( message, created_at) values ('Bonjour from Art!', '2012-03-25 13:35:00Z');
+insert into Spittle ( message, created_at) values ('Aloha from Art!', '2012-03-25 13:45:00Z');
+insert into Spittle ( message, created_at) values ('God dag from Art!', '2012-03-25 13:55:00Z');

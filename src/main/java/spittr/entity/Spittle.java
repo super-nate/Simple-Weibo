@@ -5,18 +5,29 @@ import java.util.Date;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class Spittle {
+import javax.persistence.*;
 
-  private final Long id;
-  private final String message;
-  private final Date time;
+@Entity
+public class Spittle {
+  @Id
+  @GeneratedValue(strategy= GenerationType.IDENTITY)
+  private Long id;
+  private String message;
+
+  @Column(name="created_at")
+  private Date time;
+
   private Double latitude;
   private Double longitude;
+
+  //TODO can setup relationship
+
+  public Spittle() {}
 
   public Spittle(String message, Date time) {
     this(null, message, time, null, null);
   }
-  
+  //TODO can remove id
   public Spittle(Long id, String message, Date time, Double longitude, Double latitude) {
     this.id = id;
     this.message = message;
@@ -25,7 +36,7 @@ public class Spittle {
     this.latitude = latitude;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
@@ -36,13 +47,34 @@ public class Spittle {
   public Date getTime() {
     return time;
   }
-  
+
   public Double getLongitude() {
     return longitude;
   }
   
   public Double getLatitude() {
     return latitude;
+  }
+
+
+/*  public void setId(Long id) {
+    this.id = id;
+  }*/
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public void setTime(Date time) {
+    this.time = time;
+  }
+
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
+  }
+
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
   }
   
   @Override
