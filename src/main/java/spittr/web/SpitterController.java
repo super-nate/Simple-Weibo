@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import spittr.entity.Spitter;
-import spittr.data.SpitterRepository;
+import spittr.service.SpitterManager;
 
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
 
-  private SpitterRepository spitterRepository;
+  private SpitterManager spitterManager;
 
   @Autowired
-  public SpitterController(SpitterRepository spitterRepository) {
-    this.spitterRepository = spitterRepository;
+  public SpitterController(SpitterManager spitterManager) {
+    this.spitterManager = spitterManager;
   }
   
   @RequestMapping(value="/register", method=GET)
@@ -39,7 +39,7 @@ public class SpitterController {
       return "registerForm";
     }
     
-    spitterRepository.save(spitter);
+    spitterManager.save(spitter);
     return "redirect:/spitter/" + spitter.getUsername();
   }
   
@@ -51,7 +51,7 @@ public class SpitterController {
 
   @RequestMapping(value="/{username}", method=GET)
   public String showSpitterProfile(@PathVariable String username, Model model) {
-    Spitter spitter = spitterRepository.findByUsername(username);
+    Spitter spitter = spitterManager.findByUsername(username);
     model.addAttribute(spitter);
     return "profile";
   }

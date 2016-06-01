@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= TestConfig.class)
-public class SpittleMnagerTest {
+public class SpittleManagerTest {
 	
 	@Autowired
 	SpittleManager spittleManager;
