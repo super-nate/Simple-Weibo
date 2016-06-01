@@ -21,7 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("spittr.data")
+@ComponentScan({"spittr.data", "spittr.service"})
 public class TestConfig implements TransactionManagementConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(TestConfig.class);
 
