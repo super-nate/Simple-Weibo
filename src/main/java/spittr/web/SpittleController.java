@@ -1,6 +1,7 @@
 package spittr.web;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +27,10 @@ public class SpittleController {
     this.spittleManager = spittleManager;
   }
 
-/*  @RequestMapping(method=RequestMethod.GET)
-  public List<Spittle> spittles(
-      @RequestParam(value="max", defaultValue=MAX_LONG_AS_STRING) long max,
-      @RequestParam(value="count", defaultValue="20") int count) {
-    return spittleManager.findSpittles(max, count);
-  }*/
+  @RequestMapping(method=RequestMethod.GET)
+  public List<Spittle> spittles() {
+    return spittleManager.findAll();
+  }
 
   @RequestMapping(value="/{spittleId}", method=RequestMethod.GET)
   public String spittle(

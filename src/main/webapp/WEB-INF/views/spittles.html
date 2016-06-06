@@ -27,9 +27,12 @@
       <div class="listTitle">
         <h1>Recent Spittles</h1>
         <ul class="spittleList">
+
           <li th:each="spittle : ${spittleList}" 
               th:id="'spittle_' + ${spittle.id}">
+            <a  th:href="@{'/spittles/' + ${spittle.id}}">
             <div class="spittleMessage" th:text="${spittle.message}">Spittle message</div>
+            </a>
             <div>
               <span class="spittleTime" th:text="${spittle.time}">spittle timestamp</span>
               <span class="spittleLocation" th:text="'{' + ${spittle.latitude} + ', ' + ${spittle.longitude} + ')'">lat, long</span>
