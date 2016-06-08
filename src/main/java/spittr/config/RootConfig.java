@@ -24,3 +24,12 @@ public class RootConfig {
     }    
   }
 }
+
+
+//@Configuration
+//@ComponentScan(basePackages={"spitter"},
+//        excludeFilters={
+//                @Filter(type=FilterType.ANNOTATION, value=EnableWebMvc.class)
+//        })
+//public class RootConfig {
+//}
