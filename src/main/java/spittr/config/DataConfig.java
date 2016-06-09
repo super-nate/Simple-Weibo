@@ -1,12 +1,18 @@
 package spittr.config;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -24,21 +30,26 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-//@PropertySource("classpath:/com/soundsystem/app.properties")
+@PropertySource("classpath:datasource.properties")
 public class DataConfig implements TransactionManagementConfigurer {
+
+  private static final Logger logger = LoggerFactory.getLogger(DataConfig.class);
 
   @Inject
   private SessionFactory sessionFactory;
+
+  @Resource
+  private Environment env;
 
   //TODO can change to BasicDataSource and JNDI
   @Bean
   public DataSource dataSource() {
     DriverManagerDataSource ds = new DriverManagerDataSource();
-    ds.setDriverClassName("com.mysql.jdbc.Driver");
-    ds.setUrl("jdbc:mysql://localhost:3306/spittr");
+    ds.setDriverClassName(env.getRequiredProperty("datasource.driverClassName"));
+    ds.setUrl(env.getRequiredProperty("datasource.databaseurl"));
     //TODO should move the database and hibernate configuration outside
-    ds.setUsername("root");
-    ds.setPassword("13421221497");
+    ds.setUsername(env.getRequiredProperty("datasource.username"));
+    ds.setPassword(env.getRequiredProperty("datasource.password"));
     return ds;
   }
 
@@ -61,7 +72,7 @@ public class DataConfig implements TransactionManagementConfigurer {
       lsfb.setDataSource(dataSource());
       lsfb.setPackagesToScan("spittr.entity");
       Properties props = new Properties();
-      props.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
+      props.setProperty("dialect", env.getRequiredProperty("datasource.dialect"));
       lsfb.setHibernateProperties(props);
       lsfb.afterPropertiesSet();
       //  can also just return lsfb, and it will automatically getobejct
