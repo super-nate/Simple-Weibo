@@ -11,7 +11,7 @@
 
     <div sec:authorize="isAuthenticated()">
       <a th:href="@{|/spitter/${username}|}">profile</a>
-      Hello there...<span sec:authentication="name">user-name</span>
+      <p th:text="#{home.welcome}">Welcome!</p><span sec:authentication="name">user-name</span>
     </div>
   
   
