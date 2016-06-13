@@ -25,6 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine);
+    viewResolver.setCharacterEncoding("UTF-8");
     return viewResolver;
   }
   @Bean
@@ -52,6 +53,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   public ResourceBundleMessageSource messageSource() {
     ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
     resourceBundleMessageSource.setBasename("Messages");
+    resourceBundleMessageSource.setDefaultEncoding("UTF-8");
     return resourceBundleMessageSource;
   }
 
