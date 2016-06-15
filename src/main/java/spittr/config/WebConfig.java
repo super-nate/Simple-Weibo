@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,6 +15,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
+import spittr.conversion.DateFormatter;
 
 @Configuration
 @EnableWebMvc
@@ -65,6 +67,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/login").setViewName("login");
+  }
+
+  @Override
+  public void addFormatters(final FormatterRegistry registry) {
+    super.addFormatters(registry);
+    registry.addFormatter(dataFormatter());
+  }
+
+
+  @Bean
+  public DateFormatter dataFormatter() {
+    return new DateFormatter();
   }
 
 }
