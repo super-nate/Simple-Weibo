@@ -22,11 +22,11 @@ public class SpitterWebInitializer extends AbstractAnnotationConfigDispatcherSer
     return new String[] { "/" };
   }
 
-  @Override
+/*  @Override
   protected Filter[] getServletFilters() {
     final CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
     encodingFilter.setEncoding(WebConfig.CHARACTER_ENCODING);
     encodingFilter.setForceEncoding(true);
     return new Filter[] { encodingFilter };
-  }
+  }*/
 }

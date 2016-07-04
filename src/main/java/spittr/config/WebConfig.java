@@ -12,6 +12,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.AbstractThymeleafView;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
@@ -30,6 +31,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine);
     viewResolver.setCharacterEncoding("UTF-8");
+    viewResolver.setContentType("text/html;charset=UTF-8");
     return viewResolver;
   }
   @Bean
