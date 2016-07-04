@@ -2,12 +2,14 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
       
   <body>
-  
+
     <div th:fragment="header">
       <a th:href="@{/}">
         <img th:src="@{/resources/images/spitter_logo_50.png}" border="0" /></a>
-
+      <a th:href="@{${#httpServletRequest.getAttribute('javax.servlet.forward.request_uri')}(locale='en')}">EN</a>|<a th:href="@{${#httpServletRequest.getAttribute('javax.servlet.forward.request_uri')}(locale='zh')}">中文</a>
+      <br></br>
       <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
     </div>
 
     <div>Content goes here</div>
