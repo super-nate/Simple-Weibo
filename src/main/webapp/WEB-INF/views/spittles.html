@@ -40,6 +40,8 @@
           </li>
         </ul>
       </div>
+
+      <a th:href="@{${#httpServletRequest.getAttribute('javax.servlet.forward.request_uri')}(page=${page}-1)}">Previous</a>|<a th:href="@{${#httpServletRequest.getAttribute('javax.servlet.forward.request_uri')}(page=${page}+1)}">Next</a>
     </div>
     
     <div id="footer" th:include="page :: copy"></div>
