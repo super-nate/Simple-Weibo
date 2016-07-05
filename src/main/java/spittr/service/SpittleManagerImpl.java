@@ -31,6 +31,12 @@ public class SpittleManagerImpl implements SpittleManager{
 
     @Override
     @Transactional(readOnly = true)
+    public List<Spittle> findByPage(int pageSize, int page){
+        return  spittleRepository.findByPage(pageSize, page);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Spittle> findRecentSpittles() {
         return spittleRepository.findRecentSpittles();
     }

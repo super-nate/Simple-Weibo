@@ -34,6 +34,15 @@ public class JdbcSpittleRepository implements SpittleRepository {
     return (List<Spittle>) spittleCriteria().list();
   }
 
+  public List<Spittle> findByPage(int pageSize, int page){
+    return currentSession()
+            .createCriteria(Spittle.class)
+            .addOrder(Order.desc("time"))
+            .setFirstResult(pageSize*(page-1))
+            .setMaxResults(pageSize)
+            .list();
+  }
+
   public List<Spittle> findRecentSpittles() {
     return findRecentSpittles(10);
   }

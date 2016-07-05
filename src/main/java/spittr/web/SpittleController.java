@@ -21,6 +21,7 @@ import spittr.service.SpittleManager;
 public class SpittleController {
 
   private static final String MAX_LONG_AS_STRING = "9223372036854775807";
+  private static final String PAGE_SIZE = "5";
   
   private SpittleManager spittleManager;
 
@@ -29,12 +30,14 @@ public class SpittleController {
     this.spittleManager = spittleManager;
   }
 
+
+  //simple paging using PagedListHolder
 /*  @RequestMapping(method=RequestMethod.GET)
   public List<Spittle> spittles() {
     return spittleManager.findAll();
   }*/
 
-  @RequestMapping(method=RequestMethod.GET)
+/*  @RequestMapping(method=RequestMethod.GET)
   public String spittles(
           @RequestParam(value="page",
                   defaultValue="1") int page, Model model) {
@@ -48,7 +51,26 @@ public class SpittleController {
     model.addAttribute("page", page);
     model.addAttribute("spittleList", pagedListHolder.getPageList());
     return "spittles";
+  }*/
+
+  //custom paging, more efficient
+  @RequestMapping(method=RequestMethod.GET)
+  public String spittles(
+          @RequestParam(value="page",
+                  defaultValue="1") int page, @RequestParam(value="pageSize",
+          defaultValue=PAGE_SIZE) int pageSize,Model model) {
+
+    List<Spittle> list = spittleManager.findByPage(pageSize,page);
+
+    if(list.isEmpty()){
+      list = spittleManager.findByPage(pageSize, 1);
+    }
+
+    model.addAttribute("page", page);
+    model.addAttribute("spittleList",list);
+    return "spittles";
   }
+
 
   @RequestMapping(value="/{spittleId}", method=RequestMethod.GET)
   public String spittle(
