@@ -12,14 +12,15 @@
     <div id="content">
       <div class="spittleForm">
         <h1>Spit it out...</h1>
-        <form method="POST" name="spittleForm">
+        <form method="POST" th:action="@{${#httpServletRequest.getAttribute('javax.servlet.forward.request_uri')}(${_csrf.parameterName}=${_csrf.token})}"  name="spittleForm" enctype="multipart/form-data">
           <input type="hidden" name="latitude" />
           <input type="hidden" name="longitude" />
           <textarea name="message" cols="80" rows="5"></textarea><br/>
-          
-          <input type="hidden" 
-                 th:name="${_csrf.parameterName}"
-                 th:value="${_csrf.token}" />
+
+          <label>Spittle Picture</label>:
+          <input type="file"
+                 name="profilePicture"
+                 accept="image/jpeg,image/png,image/gif" /><br/>
           
           <input type="submit" value="Add" />
         </form>

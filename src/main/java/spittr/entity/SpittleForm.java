@@ -1,5 +1,7 @@
 package spittr.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -19,7 +21,17 @@ public class SpittleForm {
   @Min(-90)
   @Max(90)
   private Double latitude;
-  
+
+  private MultipartFile profilePicture;
+
+  public MultipartFile getProfilePicture() {
+    return profilePicture;
+  }
+
+  public void setProfilePicture(MultipartFile profilePicture) {
+    this.profilePicture = profilePicture;
+  }
+
   public String getMessage() {
     return message;
   }
