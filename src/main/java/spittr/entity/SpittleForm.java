@@ -10,8 +10,9 @@ import javax.validation.constraints.Size;
 
 public class SpittleForm {
 
+  //the controller did't validate
   @NotNull
-  @Size(min=1, max=140)
+  @Size(min=5, max=140, message="can't be empty")
   private String message;
   
   @Min(-180)

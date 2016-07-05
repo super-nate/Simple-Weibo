@@ -15,6 +15,7 @@ public class Spitter {
   private Long id;
   
   @NotNull
+  @Column(unique=true)
   @Size(min=5, max=16, message="{username.size}")
   private String username;
 
