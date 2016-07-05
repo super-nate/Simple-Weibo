@@ -12,6 +12,7 @@ import java.util.List;
  * Created by Administrator on 2016/5/29.
  */
 @Service
+@Transactional(readOnly = true)
 public class SpitterManagerImpl implements SpitterManager {
 
 
@@ -23,37 +24,33 @@ public class SpitterManagerImpl implements SpitterManager {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Spitter> findAll() {
         return spitterRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Spitter findByUsername(String username) {
         return spitterRepository.findByUsername(username);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Spitter findOne(Long id) {
         return spitterRepository.findOne(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public Spitter save(Spitter spitter) {
         return spitterRepository.save(spitter);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void update(Spitter spitter) {
         spitterRepository.update(spitter);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public long count() {
         return spitterRepository.count();
     }

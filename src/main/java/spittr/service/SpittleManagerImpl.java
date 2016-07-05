@@ -14,6 +14,7 @@ import java.util.List;
 //@Transactional(readOnly = true)
 //can use @Transactional in the class level and override it in the method level
 @Service
+@Transactional(readOnly = true)
 public class SpittleManagerImpl implements SpittleManager{
 
     SpittleRepository spittleRepository;
@@ -24,43 +25,38 @@ public class SpittleManagerImpl implements SpittleManager{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Spittle> findAll() {
         return spittleRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Spittle> findByPage(int pageSize, int page){
         return  spittleRepository.findByPage(pageSize, page);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Spittle> findRecentSpittles() {
         return spittleRepository.findRecentSpittles();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Spittle findOne(long id) {
         return spittleRepository.findOne(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public Spittle save(Spittle spittle) {
         return spittleRepository.save(spittle);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void delete(long id) {
         spittleRepository.delete(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public long count() {
         return spittleRepository.count();
     }
