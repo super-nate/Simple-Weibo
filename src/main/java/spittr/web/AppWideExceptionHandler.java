@@ -20,9 +20,9 @@ public class AppWideExceptionHandler {
     }
 
 
-  @ExceptionHandler(ConstraintViolationException.class)
-    public String duplicateSpittleHandler() {
+  /*@ExceptionHandler(ConstraintViolationException.class)
+    public String duplicateSpitterHandler() {
         return "redirect:/spitter/register";
-    }
+    }*/
 }
 

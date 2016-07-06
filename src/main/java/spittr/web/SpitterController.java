@@ -36,13 +36,18 @@ public class SpitterController {
   @RequestMapping(value="/register", method=POST)
   public String processRegistration(
       @Valid Spitter spitter, 
-      Errors errors) {
+      Errors errors, Model model) {
     if (errors.hasErrors()) {
       return "registerForm";
     }
-    
-    spitterManager.save(spitter);
-    return "redirect:/spitter/" + spitter.getUsername();
+    try {
+      spitterManager.save(spitter);
+      model.addAttribute("username", spitter.getUsername());
+      return "redirect:/spitter/{username}";
+    }
+    catch (ConstraintViolationException e){
+      return "registerForm";
+    }
   }
   
   @RequestMapping(value="/me", method=GET)
