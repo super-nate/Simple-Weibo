@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:liquibase-changeLog.sql" />
+
+    <changeSet author="supermanheng21" id="5">
+        <tagDatabase tag="version_0.1"/>
+    </changeSet>
+
+    <changeSet author="supermanheng21" id="6">
+        <sql>
+            INSERT INTO Spittle (message, created_at) VALUES ('test10', Now());
+        </sql>
+        <comment>Migrate after tagging</comment>
+    </changeSet>
+
+</databaseChangeLog>

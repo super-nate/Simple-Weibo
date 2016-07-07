@@ -88,7 +88,7 @@ public class DataConfig implements TransactionManagementConfigurer {
   @Bean
   public SpringLiquibase liquibase() {
     SpringLiquibase liquibase = new SpringLiquibase();
-    liquibase.setChangeLog("classpath:liquibase-changeLog.sql");
+    liquibase.setChangeLog("classpath:liquibase-changeLog.xml");
     liquibase.setDataSource(dataSource());
     return liquibase;
   }

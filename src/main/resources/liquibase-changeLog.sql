@@ -39,3 +39,7 @@ INSERT INTO Spittle (message, created_at) VALUES ('test8', Now());
 ALTER TABLE Spittle ADD spitter_id int;
 UPDATE Spittle SET spitter_id=1;
 --rollback ALTER TABLE Spittle DROP COLUMN spitter_id;
+
+
+--changeset supermanheng21:4
+INSERT INTO Spitter (username, password, first_name, last_name, email) VALUES ('supermanheng23', '263502', 'Zhiheng', 'Xu', 'supermanheng21@gmail.com');
