@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +83,18 @@ public class DataConfig implements TransactionManagementConfigurer {
       return null;
     }
   }
+
+
+  @Bean
+  public SpringLiquibase liquibase() {
+    SpringLiquibase liquibase = new SpringLiquibase();
+    liquibase.setChangeLog("classpath:liquibase-changeLog.sql");
+    liquibase.setDataSource(dataSource());
+    return liquibase;
+  }
 }
+
+
 /*@Configuration
 public class DataConfig {
 
