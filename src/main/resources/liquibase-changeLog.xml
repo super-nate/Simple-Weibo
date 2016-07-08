@@ -7,17 +7,24 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <include file="classpath:liquibase-changeLog.sql" />
+    <include file="src/main/resources/liquibase-changeLog-1.sql" />
 
-    <changeSet author="supermanheng21" id="5">
-        <tagDatabase tag="version_0.1"/>
+    <changeSet author="supermanheng21" id="AddVersionTag1">
+        <tagDatabase tag="version_1"/>
     </changeSet>
 
-    <changeSet author="supermanheng21" id="6">
-        <sql>
-            INSERT INTO Spittle (message, created_at) VALUES ('test10', Now());
-        </sql>
-        <comment>Migrate after tagging</comment>
+    <include file="src/main/resources/liquibase-changeLog-2.sql" />
+
+    <changeSet author="supermanheng21" id="AddVersionTag2">
+        <tagDatabase tag="version_2"/>
     </changeSet>
+
+    <include file="src/main/resources/liquibase-changeLog-3.sql" />
+
+
+    <changeSet author="supermanheng21" id="AddVersionTag3">
+        <tagDatabase tag="version_3"/>
+    </changeSet>
+
 
 </databaseChangeLog>

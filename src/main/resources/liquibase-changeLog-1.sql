@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset supermanheng21:1
+--changeset supermanheng21:CreateTables
 create table Spittle (
 	id int NOT NULL auto_increment,
 	message varchar(140) not null,
@@ -18,11 +18,11 @@ create table Spitter (
 	email varchar(30) not null,
 	primary key(id)
 );
---rollback drop table Spittle;
---rollback drop table Spitter;
+--rollback DROP TABLE Spittle;
+--rollback DROP TABLE Spitter;
 
 
---changeset supermanheng21:2
+--changeset supermanheng21:InitiateTables
 INSERT INTO Spitter (username, password, first_name, last_name, email) VALUES ('supermanheng21', '263502', 'Zhiheng', 'Xu', 'zhihengxu@hotmail.com');
 INSERT INTO Spitter (username, password, first_name, last_name, email) VALUES ('supermanheng22', '263502', 'Zhiheng', 'Xu', 'zhiheng.xu@aalto.fi');
 INSERT INTO Spittle (message, created_at) VALUES ('test1', Now());
@@ -33,13 +33,5 @@ INSERT INTO Spittle (message, created_at) VALUES ('test5', Now());
 INSERT INTO Spittle (message, created_at) VALUES ('test6', Now());
 INSERT INTO Spittle (message, created_at) VALUES ('test7', Now());
 INSERT INTO Spittle (message, created_at) VALUES ('test8', Now());
+--rollback SELECT * FROM Spitter LIMIT 1;
 
-
---changeset supermanheng21:3
-ALTER TABLE Spittle ADD spitter_id int;
-UPDATE Spittle SET spitter_id=1;
---rollback ALTER TABLE Spittle DROP COLUMN spitter_id;
-
-
---changeset supermanheng21:4
-INSERT INTO Spitter (username, password, first_name, last_name, email) VALUES ('supermanheng23', '263502', 'Zhiheng', 'Xu', 'supermanheng21@gmail.com');
