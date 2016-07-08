@@ -9,7 +9,7 @@
             <param name="ConversionPattern" value="%-5p: %c - %m%n"/>
         </layout>
     </appender>
-
+   <!-- Logger logger = Logger.getLogger("spittr")-->
     <!-- Application Loggers -->
     <logger name="spittr">
         <level value="info"/>
