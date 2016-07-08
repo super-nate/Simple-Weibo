@@ -1,3 +1,13 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.liquibase:liquibase-gradle-plugin:1.2.1"
+    classpath "mysql:mysql-connector-java:$mysqlVersion"
+  }
+}
+apply plugin: 'org.liquibase.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
@@ -20,6 +30,7 @@ dependencies {
   compile "javax.inject:javax.inject:1"
   compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
   compile group: 'log4j', name: 'log4j', version: '1.2.17'
+  compile group: 'org.liquibase', name: 'liquibase-core', version: '3.4.1'
 
   providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
 
@@ -35,6 +46,7 @@ repositories {
   maven { url 'http://maven.springframework.org/milestone' }
   maven { url 'http://maven.springframework.org/snapshot' }
   maven { url 'http://download.java.net/maven/2' }
+  maven { url 'https://mvnrepository.com/artifact/org.liquibase/liquibase-core' }
   mavenCentral()
 }
 
@@ -58,5 +70,32 @@ test {
   reports {
     junitXml.enabled = false
     html.enabled = true
+  }
+}
+
+liquibase {
+  activities {
+    main {
+      changeLogFile "src/main/resources/liquibase-changeLog.xml"
+      url "jdbc:mysql://localhost:3306/spittr?useUnicode=true&amp;characterEncoding=utf-8"
+      username "root"
+      password "13421221497"
+    }
+
+/*
+    test {
+      main {
+        changeLogFile "src/main/resources/web-bundle-config/liquibase/main-test-changelog.xml"
+        url "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8"
+        username "root"
+        password "yourpass"
+      }
+    }
+*/
+
+
+    // runList = project.ext.runList
+    //runList = 'main, second'
+    runList = 'main'
   }
 }

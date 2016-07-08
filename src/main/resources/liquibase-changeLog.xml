@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="src/main/resources/liquibase-changeLog-1.sql" />
+
+    <changeSet author="supermanheng21" id="AddVersionTag1">
+        <tagDatabase tag="version_1"/>
+    </changeSet>
+
+    <include file="src/main/resources/liquibase-changeLog-2.sql" />
+
+    <changeSet author="supermanheng21" id="AddVersionTag2">
+        <tagDatabase tag="version_2"/>
+    </changeSet>
+
+    <include file="src/main/resources/liquibase-changeLog-3.sql" />
+
+
+    <changeSet author="supermanheng21" id="AddVersionTag3">
+        <tagDatabase tag="version_3"/>
+    </changeSet>
+
+
+</databaseChangeLog>
