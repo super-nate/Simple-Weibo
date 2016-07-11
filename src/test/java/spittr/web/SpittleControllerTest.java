@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.view.InternalResourceView;
 
+import spittr.service.SpitterManager;
 import spittr.service.SpittleManager;
 import spittr.entity.Spittle;
 import spittr.data.SpittleRepository;
@@ -61,9 +62,10 @@ public class SpittleControllerTest {
   public void testSpittle() throws Exception {
     Spittle expectedSpittle = new Spittle("Hello", new Date());
     SpittleManager mockManager = mock(SpittleManager.class);
+    SpitterManager mockSptterManager = mock(SpitterManager.class);
     when(mockManager.findOne(12345)).thenReturn(expectedSpittle);
     
-    SpittleController controller = new SpittleController(mockManager);
+    SpittleController controller = new SpittleController(mockManager,mockSptterManager);
     MockMvc mockMvc = standaloneSetup(controller).build();
 
     mockMvc.perform(get("/spittles/12345"))
