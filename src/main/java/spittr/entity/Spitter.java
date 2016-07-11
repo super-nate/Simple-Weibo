@@ -14,115 +14,128 @@ import java.util.Set;
 @Entity
 public class Spitter {
 
-  @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private Long id;
-  
-  @NotNull
-  @Column(unique=true)
-  @Size(min=5, max=16, message="{username.size}")
-  private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @NotNull
-  @Size(min=5, max=25, message="{password.size}")
-  private String password;
-  
-  @NotNull
-  @Size(min=2, max=30, message="{firstName.size}")
-  @Column(name="first_name")
-  private String firstName;
+    @NotNull
+    @Column(unique = true)
+    @Size(min = 5, max = 16, message = "{username.size}")
+    private String username;
 
-  @NotNull
-  @Size(min=2, max=30, message="{lastName.size}")
-  @Column(name="last_name")
-  private String lastName;
-  
-  @NotNull
-  @Email
-  private String email;
+    @NotNull
+    @Size(min = 5, max = 25, message = "{password.size}")
+    private String password;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy="spitter",cascade = CascadeType.ALL)
-  @OrderBy("created_at DESC")
-  private List<Spittle> spittles;
+    @NotNull
+    @Size(min = 2, max = 30, message = "{firstName.size}")
+    @Column(name = "first_name")
+    private String firstName;
 
-  public Spitter() {}
-  
-  public Spitter(String username, String password, String firstName, String lastName, String email) {
-    this(null, username, password, firstName, lastName, email);
-  }
-  //TODO can remove id
-  public Spitter(Long id, String username, String password, String firstName, String lastName, String email) {
-    this.id = id;
-    this.username = username;
-    this.password = password;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-  }
+    @NotNull
+    @Size(min = 2, max = 30, message = "{lastName.size}")
+    @Column(name = "last_name")
+    private String lastName;
 
-  public List<Spittle> getSpittles() {
-    return spittles;
-  }
+    @NotNull
+    @Email
+    private String email;
 
-  public void setSpittles(List<Spittle> spittles) {
-    this.spittles = spittles;
-  }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spitter", cascade = CascadeType.ALL)
+    @OrderBy("created_at DESC")
+    private List<Spittle> spittles;
 
-  public String getUsername() {
-    return username;
-  }
+    public Spitter() {
+    }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public Spitter(String username, String password, String firstName, String lastName, String email) {
+        this(null, username, password, firstName, lastName, email);
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    //TODO can remove id
+    public Spitter(Long id, String username, String password, String firstName, String lastName, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public Spitter(Long id, String username, String password, String firstName, String lastName, String email, List<Spittle> spittles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.spittles = spittles;
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public List<Spittle> getSpittles() {
+        return spittles;
+    }
+
+    public void setSpittles(List<Spittle> spittles) {
+        this.spittles = spittles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
   /*public void setId(Long id) {
     this.id = id;
   }*/
 
-  public String getFirstName() {
-    return firstName;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-  
-  public String getEmail() {
-    return email;
-  }
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-  @Override
-  public boolean equals(Object that) {
-    return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "username", "password", "email");
-  }
-  
-  @Override
-  public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "username", "password", "email");
-  }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        return EqualsBuilder.reflectionEquals(this, that, "firstName", "lastName", "username", "password", "email");
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this, "firstName", "lastName", "username", "password", "email");
+    }
 
 }

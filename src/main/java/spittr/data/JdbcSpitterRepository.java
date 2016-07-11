@@ -56,7 +56,8 @@ public class JdbcSpitterRepository implements SpitterRepository {
                 spitter.getPassword(),
                 spitter.getFirstName(),
                 spitter.getLastName(),
-                spitter.getEmail()
+                spitter.getEmail(),
+                spitter.getSpittles()
         );
     }
 

@@ -10,7 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import spittr.config.TestConfig;
 import spittr.entity.Spitter;
+import spittr.entity.Spittle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -63,7 +65,7 @@ public class SpitterRepositoryTest {
   public void save_newSpitter() {
     assertEquals(4, spitterRepository.count());
     Spitter spitter = new Spitter(null, "newbee", "letmein", "New", "Bee",
-        "newbee@habuma.com");
+        "newbee@habuma.com", new ArrayList<Spittle>() );
     Spitter saved = spitterRepository.save(spitter);
     assertEquals(5, spitterRepository.count());
     assertSpitter(4, saved);
@@ -96,17 +98,17 @@ public class SpitterRepositoryTest {
   @BeforeClass
   public static void before() {
     SPITTERS[0] = new Spitter(1L, "habuma", "password", "Craig", "Walls",
-        "craig@habuma.com");
+        "craig@habuma.com", new ArrayList<Spittle>());
     SPITTERS[1] = new Spitter(2L, "mwalls", "password", "Michael", "Walls",
-        "mwalls@habuma.com");
+        "mwalls@habuma.com", new ArrayList<Spittle>());
     SPITTERS[2] = new Spitter(3L, "chuck", "password", "Chuck", "Wagon",
-        "chuck@habuma.com");
+        "chuck@habuma.com", new ArrayList<Spittle>());
     SPITTERS[3] = new Spitter(4L, "artnames", "password", "Art", "Names",
-        "art@habuma.com");
+        "art@habuma.com", new ArrayList<Spittle>());
     SPITTERS[4] = new Spitter(5L, "newbee", "letmein", "New", "Bee",
-        "newbee@habuma.com");
+        "newbee@habuma.com", new ArrayList<Spittle>());
     SPITTERS[5] = new Spitter(4L, "arthur", "letmein", "Arthur", "Names",
-        "arthur@habuma.com");
+        "arthur@habuma.com", new ArrayList<Spittle>());
   }
 
 }
