@@ -21,6 +21,8 @@ public class Spittle {
   private Double longitude;
 
   //TODO can setup relationship
+  @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private Spitter spitter;
 
   public Spittle() {}
 
@@ -34,6 +36,23 @@ public class Spittle {
     this.time = time;
     this.longitude = longitude;
     this.latitude = latitude;
+  }
+
+  public Spittle(Long id, String message, Date time, Double longitude, Double latitude,Spitter spitter) {
+    this.id = id;
+    this.message = message;
+    this.time = time;
+    this.longitude = longitude;
+    this.latitude = latitude;
+    this.spitter=spitter;
+  }
+
+  public Spitter getSpitter() {
+    return spitter;
+  }
+
+  public void setSpitter(Spitter spitter) {
+    this.spitter = spitter;
   }
 
   public Long getId() {

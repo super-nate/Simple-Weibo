@@ -7,6 +7,10 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
+
+import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Spitter {
 
@@ -37,6 +41,10 @@ public class Spitter {
   @Email
   private String email;
 
+  @OneToMany(fetch = FetchType.EAGER, mappedBy="spitter",cascade = CascadeType.ALL)
+  @OrderBy("created_at DESC")
+  private List<Spittle> spittles;
+
   public Spitter() {}
   
   public Spitter(String username, String password, String firstName, String lastName, String email) {
@@ -50,6 +58,14 @@ public class Spitter {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+  }
+
+  public List<Spittle> getSpittles() {
+    return spittles;
+  }
+
+  public void setSpittles(List<Spittle> spittles) {
+    this.spittles = spittles;
   }
 
   public String getUsername() {

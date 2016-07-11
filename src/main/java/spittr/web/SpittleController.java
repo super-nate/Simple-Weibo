@@ -6,13 +6,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
+import spittr.entity.Spitter;
 import spittr.entity.Spittle;
 import spittr.entity.SpittleForm;
+import spittr.service.SpitterManager;
 import spittr.service.SpittleManager;
 
 @Controller
@@ -24,9 +28,12 @@ public class SpittleController {
 
     private SpittleManager spittleManager;
 
+    private SpitterManager spitterManager;
+
     @Autowired
-    public SpittleController(SpittleManager spittleManager) {
+    public SpittleController(SpittleManager spittleManager, SpitterManager spitterManager) {
         this.spittleManager = spittleManager;
+        this.spitterManager = spitterManager;
     }
 
 
@@ -70,6 +77,28 @@ public class SpittleController {
         return "spittles";
     }
 
+    @RequestMapping(value = "/ownSpittles", method = RequestMethod.GET)
+    public String ownSpittles(
+            @RequestParam(value = "page",
+                    defaultValue = "1") int page, @RequestParam(value = "pageSize",
+            defaultValue = PAGE_SIZE) int pageSize, Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        //TODO how to keep the login user in session or how to get the login user
+        Spitter spitter = spitterManager.findByUsername(name);
+
+        PagedListHolder<Spittle> pagedListHolder = new PagedListHolder<>(spitter.getSpittles());
+        pagedListHolder.setPageSize(pageSize);
+        if (page < 1 || page > pagedListHolder.getPageCount()) page = 1;
+        pagedListHolder.setPage(page - 1);
+
+        model.addAttribute("page", page);
+        model.addAttribute("spittleList", pagedListHolder.getPageList());
+        return "ownSpittles";
+    }
+
 
     @RequestMapping(value = "/{spittleId}", method = RequestMethod.GET)
     public String spittle(
@@ -82,11 +111,18 @@ public class SpittleController {
     @RequestMapping(method = RequestMethod.POST)
     public String saveSpittle(SpittleForm form, Model model) throws Exception {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        //TODO how to keep the login user in session or how to get the login user
+        Spitter spitter = spitterManager.findByUsername(name);
+
+
         Long id = spittleManager.save(new Spittle(null, form.getMessage(), new Date(),
-                form.getLongitude(), form.getLatitude())).getId();
+                form.getLongitude(), form.getLatitude(), spitter)).getId();
 
         MultipartFile profilePicture = form.getProfilePicture();
-        if (profilePicture!=null) {
+        if (profilePicture != null) {
             profilePicture.transferTo(new File("/spittles/" + id + ".jpg"));
         }
         return "redirect:/spittles";
