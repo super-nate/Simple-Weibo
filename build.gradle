@@ -22,6 +22,7 @@ dependencies {
   compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
   compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE"
   compile "org.springframework.ldap:spring-ldap-core:2.0.1.RELEASE"
+  compile "org.springframework:spring-context-support:$springVersion"
 
   compile "org.springframework:spring-context:$springVersion"
   compile "org.springframework:spring-orm:$springVersion"
@@ -31,6 +32,8 @@ dependencies {
   compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
   compile group: 'log4j', name: 'log4j', version: '1.2.17'
   compile group: 'org.liquibase', name: 'liquibase-core', version: '3.4.1'
+  compile "net.sf.ehcache:ehcache:$ehcacheVersion"
+  compile "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
 
   providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
 
