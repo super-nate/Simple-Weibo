@@ -2,11 +2,10 @@ package spittr.config;
 
 import java.util.regex.Pattern;
 
-import org.springframework.context.annotation.ComponentScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.type.filter.RegexPatternTypeFilter;
 
 import spittr.config.RootConfig.WebPackage;
@@ -23,6 +22,13 @@ public class RootConfig {
       super(Pattern.compile("spittr\\.web"));
     }    
   }
+
+
+  @Bean
+  public Logger log(){
+    return LoggerFactory.getLogger("spittr");
+  }
+
 }
 
 

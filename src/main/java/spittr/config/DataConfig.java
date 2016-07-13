@@ -34,9 +34,7 @@ import java.util.Properties;
 @PropertySource("classpath:datasource.properties")
 public class DataConfig implements TransactionManagementConfigurer {
 
-  private static final Logger logger = LoggerFactory.getLogger(DataConfig.class);
-
-  @Inject
+  @Autowired
   private SessionFactory sessionFactory;
 
   @Resource
