@@ -35,9 +35,7 @@ public class JdbcSpittleRepository implements SpittleRepository {
   }
 
   public List<Spittle> findByPage(int pageSize, int page){
-    return currentSession()
-            .createCriteria(Spittle.class)
-            .addOrder(Order.desc("time"))
+    return (List<Spittle>) spittleCriteria()
             .setFirstResult(pageSize*(page-1))
             .setMaxResults(pageSize)
             .list();
@@ -79,7 +77,9 @@ public class JdbcSpittleRepository implements SpittleRepository {
   private Criteria spittleCriteria() {
     return currentSession()
             .createCriteria(Spittle.class)
-            .addOrder(Order.desc("time"));
+                    .setCacheable(true)
+                    .setCacheRegion("Spittle")
+                    .addOrder(Order.desc("time"));
   }
 
 }

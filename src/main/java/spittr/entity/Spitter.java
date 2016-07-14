@@ -1,17 +1,23 @@
 package spittr.entity;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.annotations.Cache;
 
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "Spittle")
 public class Spitter {
 
     @Id
@@ -43,6 +49,7 @@ public class Spitter {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "spitter", cascade = CascadeType.ALL)
     @OrderBy("created_at DESC")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "Spittle")
     private List<Spittle> spittles;
 
     public Spitter() {

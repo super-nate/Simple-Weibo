@@ -39,6 +39,8 @@ public class JdbcSpitterRepository implements SpitterRepository {
     public Spitter findByUsername(String username) {
         return (Spitter) currentSession()
                 .createCriteria(Spitter.class)
+                .setCacheable(true)
+                .setCacheRegion("Spittle")
                 .add(Restrictions.eq("username", username))
                 .list().get(0);
     }

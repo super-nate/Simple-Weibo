@@ -52,6 +52,10 @@ public class TestConfig implements TransactionManagementConfigurer {
             lsfb.setPackagesToScan("spittr.entity");
             Properties props = new Properties();
             props.setProperty("dialect", "org.hibernate.dialect.H2Dialect");
+            props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+            props.setProperty("hibernate.cache.use_structured_entries", "true");
+            props.setProperty("hibernate.cache.use_second_level_cache", "true");
+            props.setProperty("hibernate.cache.use_query_cache", "true");
             lsfb.setHibernateProperties(props);
             lsfb.afterPropertiesSet();
             SessionFactory object = lsfb.getObject();
