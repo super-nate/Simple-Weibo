@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").authenticated()
                 .antMatchers("/spitter/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/spittles").authenticated()
+                .antMatchers("/spitter/supermanheng27")
+                .access("isAuthenticated() and principal.username=='supermanheng27'")
                 .anyRequest().permitAll();
     }
 
