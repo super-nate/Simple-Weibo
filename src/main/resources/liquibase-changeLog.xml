@@ -26,5 +26,7 @@
         <tagDatabase tag="version_3"/>
     </changeSet>
 
+    <include file="src/main/resources/liquibase-changeLog-4.sql" />
+
 
 </databaseChangeLog>

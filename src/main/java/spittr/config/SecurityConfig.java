@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 
 import javax.sql.DataSource;
@@ -57,6 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource).usersByUsernameQuery(
                 "select username, password, true " + "from Spitter where username=?")
                 .authoritiesByUsernameQuery(
-                        "select username, 'ROLE_USER' from Spitter where username=?");
+                        "select username, 'ROLE_USER' from Spitter where username=?")
+                .passwordEncoder(new BCryptPasswordEncoder());
+        //TODO can make BCryptPasswordEncoder a bean in rootconfig
     }
 }
