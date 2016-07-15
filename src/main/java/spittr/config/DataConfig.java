@@ -72,6 +72,7 @@ public class DataConfig implements TransactionManagementConfigurer {
       lsfb.setPackagesToScan("spittr.entity");
       Properties props = new Properties();
       props.setProperty("dialect", env.getRequiredProperty("datasource.dialect"));
+      props.setProperty("format_sql", env.getRequiredProperty("datasource.format_sql"));
       lsfb.setHibernateProperties(props);
       lsfb.afterPropertiesSet();
       //  can also just return lsfb, and it will automatically getobejct
