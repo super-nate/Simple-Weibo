@@ -3,6 +3,7 @@ package spittr.data;
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import spittr.entity.Spittle;
 
@@ -19,7 +20,7 @@ public interface SpittleRepository {
   @Cacheable("spittleCache")
   Spittle findOne(long id);
 
-  @Cacheable(value = "spittleCache", key = "#result.id")
+  @CachePut(value = "spittleCache", key = "#result.id")
   Spittle save(Spittle spittle);
 
   @CacheEvict("spittleCache")
