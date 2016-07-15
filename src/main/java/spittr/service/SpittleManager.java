@@ -12,7 +12,7 @@ import java.util.List;
 public interface SpittleManager {
     List<Spittle> findAll();
 
-    //@PostFilter( "filterObject.spitter.username == principal.name")
+    @PostFilter( "filterObject.spitter.username == principal.username")
     List<Spittle> findByPage(int pageSize, int page);
 
     List<Spittle> findRecentSpittles();
