@@ -19,6 +19,8 @@ import spittr.entity.SpittleForm;
 import spittr.service.SpitterManager;
 import spittr.service.SpittleManager;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/spittles")
 public class SpittleController {
@@ -81,13 +83,13 @@ public class SpittleController {
     public String ownSpittles(
             @RequestParam(value = "page",
                     defaultValue = "1") int page, @RequestParam(value = "pageSize",
-            defaultValue = PAGE_SIZE) int pageSize, Model model) {
+            defaultValue = PAGE_SIZE) int pageSize, Model model, HttpSession sessionObj) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
+        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();*/ //get logged in username
 
         //TODO how to keep the login user in session or how to get the login user
-        Spitter spitter = spitterManager.findByUsername(name);
+        Spitter spitter = (Spitter)sessionObj.getAttribute("spitter");
 
         PagedListHolder<Spittle> pagedListHolder = new PagedListHolder<>(spitter.getSpittles());
         pagedListHolder.setPageSize(pageSize);
@@ -109,13 +111,13 @@ public class SpittleController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String saveSpittle(SpittleForm form, Model model) throws Exception {
+    public String saveSpittle(SpittleForm form, Model model, HttpSession sessionObj) throws Exception {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       /* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
-
+*/
         //TODO how to keep the login user in session or how to get the login user
-        Spitter spitter = spitterManager.findByUsername(name);
+        Spitter spitter = (Spitter)sessionObj.getAttribute("spitter");
 
 
         Long id = spittleManager.save(new Spittle(null, form.getMessage(), new Date(),
