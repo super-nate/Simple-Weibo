@@ -28,10 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login")// if I add /login mapping in the controller will overide the orgin processing
+                //.successHandler()
+                //.loginProcessingUrl("/login")
+                //.defaultSuccessUrl("/spittles/ownSpittles") //shortup for successhandler
+                //.failureHandler()
+                .failureUrl("/login-error") //shortcut for (or override) failureHandler, can also set the url to "/login?error=true", default is "/login?error"
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
+               //.logoutSuccessHandler()  //will override the logoutSuccessUrl
                 .and()
                 .rememberMe()
                 .tokenRepository(new InMemoryTokenRepositoryImpl())
