@@ -9,16 +9,20 @@
   </head>
   <body>
 
+  <span sec:authorize-url="/spitter/supermanheng27">
+     <a th:href="@{/spitter/supermanheng27}">profile</a>
+  </span>
+
+
     <div sec:authorize="isAuthenticated()">
       <a th:href="@{|/spitter/${username}|}">profile</a>
-
       <p> <span th:text="#{home.welcome}">Welcome</span>&nbsp;<span sec:authentication="name">user-name</span>!</p>
 
     </div>
   
   
     <div id="header" th:include="page :: header"></div>
-  
+  <p th:if="${loginSuccess}">Login success</p>
     <div id="content">
       <h1>Welcome to Spitter</h1>
   

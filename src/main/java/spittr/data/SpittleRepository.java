@@ -12,6 +12,7 @@ public interface SpittleRepository {
   @Cacheable("spittleCache")
   List<Spittle> findAll();
 
+  //TODO this will mess up the cache with different user, so I should add a id field in the params list
   @Cacheable("spittleCache")
   List<Spittle> findByPage(int pageSize, int page);
 

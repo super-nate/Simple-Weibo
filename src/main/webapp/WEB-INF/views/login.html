@@ -12,8 +12,7 @@
   <div id="content">
   
     <a th:href="@{/spitter/register}">Register</a>
-  
-  
+      <p th:if="${loginError}">Wrong user or password</p>
   <form name='f' th:action='@{/login}' method='POST'>
    <table>
     <tr><td>User:</td><td>
