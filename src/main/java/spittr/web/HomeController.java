@@ -36,8 +36,21 @@ public class HomeController {
     Spitter spitter = spitterManager.findByUsername(name);
     sessionObj.setAttribute("spitter", spitter);
 
+    model.addAttribute("loginSuccess", true);
     model.addAttribute("username", name);
     return "home";
   }
+
+  @RequestMapping("/login-error")
+  public String loginError(Model model) {
+    model.addAttribute("loginError", true);
+    return "login";
+  }
+
+/*  @RequestMapping("/login")
+  public String login(Model model) {
+    model.addAttribute("loginSuccess", true);
+    return "home";
+  }*/
 
 }
