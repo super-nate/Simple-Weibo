@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Administrator on 2016/7/21.
  */
 @RestController
-@RequestMapping("/spittles")
+@RequestMapping("/api/spittles")
 public class SpittleApiController {
     private static final String MAX_LONG_AS_STRING = "9223372036854775807";
 
@@ -68,7 +68,7 @@ public class SpittleApiController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, consumes="application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes="application/json", produces ="application/json")
     public ResponseEntity<Spittle> saveSpittle(@RequestBody Spittle spittle,UriComponentsBuilder ucb) throws Exception {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,7 +82,7 @@ public class SpittleApiController {
 
         HttpHeaders headers = new HttpHeaders();
         URI locationUri =
-                ucb.path("/spittles/")
+                ucb.path("/api/spittles/")
                         .path(String.valueOf(id))
                         .build()
                         .toUri();

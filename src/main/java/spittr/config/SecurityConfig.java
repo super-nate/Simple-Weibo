@@ -13,8 +13,12 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
+import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -26,7 +30,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+            private RegexRequestMatcher apiMatcher =
+                    new RegexRequestMatcher("/api/.*", null);
+            private Pattern allowedMethods =
+                    Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
+            @Override
+            public boolean matches(HttpServletRequest request) {
+                // CSRF disabled on allowedMethod
+                if(allowedMethods.matcher(request.getMethod()).matches())
+                    return false;
+
+                // CSRF disabled on api calls
+                if (apiMatcher.matches(request))
+                    return false;
+                // CSRF enables for other requests
+                return true;
+            }
+        }).and()
                 .formLogin()
                 .loginPage("/login")// if I add /login mapping in the controller will overide the orgin processing
                 //.successHandler()
@@ -37,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-               //.logoutSuccessHandler()  //will override the logoutSuccessUrl
+                //.logoutSuccessHandler()  //will override the logoutSuccessUrl
                 .and()
                 .rememberMe()
                 .tokenRepository(new InMemoryTokenRepositoryImpl())
@@ -75,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new BCryptPasswordEncoder());
         //TODO can make BCryptPasswordEncoder a bean in rootconfig
     }
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
