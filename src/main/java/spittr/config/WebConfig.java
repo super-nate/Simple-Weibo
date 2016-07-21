@@ -27,7 +27,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("spittr.web")
+@ComponentScan({"spittr.web", "spittr.api"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
   public static final String CHARACTER_ENCODING = "UTF-8";

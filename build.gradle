@@ -35,6 +35,8 @@ dependencies {
   compile "net.sf.ehcache:ehcache:$ehcacheVersion"
   compile "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
 
+  compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
   providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
 
   testCompile "com.h2database:h2:$h2Version"

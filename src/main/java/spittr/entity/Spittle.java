@@ -2,6 +2,7 @@ package spittr.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -48,7 +49,7 @@ public class Spittle {
         this.latitude = latitude;
         this.spitter = spitter;
     }
-
+    @JsonIgnore
     public Spitter getSpitter() {
         return spitter;
     }

@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.loginProcessingUrl("/login")
                 //.defaultSuccessUrl("/spittles/ownSpittles") //shortup for successhandler
                 //.failureHandler()
-                .failureUrl("/login-error") //shortcut for (or override) failureHandler, can also set the url to "/login?error=true", default is "/login?error"
+                //.failureUrl("/login-error") //shortcut for (or override) failureHandler, can also set the url to "/login?error=true", default is "/login?error"
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
