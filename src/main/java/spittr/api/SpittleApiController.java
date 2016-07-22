@@ -21,6 +21,7 @@ import spittr.service.SpittleManager;
 import spittr.exception.Error;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import java.io.File;
 import java.net.URI;
 import java.util.Date;
@@ -107,4 +108,10 @@ public class SpittleApiController {
         return  new Error(-1, "Spittle not found");
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Error spittleNotFound(
+            ConstraintViolationException e) {
+        return  new Error(-1, e.getMessage());
+    }
 }
