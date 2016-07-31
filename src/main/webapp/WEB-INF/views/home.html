@@ -2,6 +2,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
   <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- ... -->
     <title>Spitter</title>
     <link rel="stylesheet" 
           type="text/css" 
@@ -31,6 +35,70 @@
       
       View: <span th:text="${view}">unknown</span>
     </div>
+    <button id="test">gogogo</button>
+    <button id="test2">gogogo2</button>
+    <p id="testresult"></p>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+
+      $(document).ready(function() {
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        $(document).ajaxSend(function(e, xhr, options) {
+          xhr.setRequestHeader(header, token);
+        });
+
+        $("#test").click(function() {
+          alert("hello")
+
+          $.ajax
+          ({
+            type: "POST",
+            contentType: "application/json",
+            url: "http://localhost:4433/spittles/test",
+            dataType: 'json',
+            async: false,
+            data: JSON.stringify({ "message": "Poagaga" }),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            success: function (result){
+              var json = JSON.stringify(result);
+              alert(json);
+            }
+          });
+
+        });
+
+
+        $("#test2").click(function() {
+          alert("hello")
+
+          $.ajax
+          ({
+            type: "POST",
+            contentType: "application/json",
+            url: "http://localhost:4433/api/spittles",
+            dataType: 'json',
+            async: false,
+            data: JSON.stringify({ "message": "Poagaga" }),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            success: function (result){
+              var json = JSON.stringify(result);
+              alert(json);
+            }
+          });
+
+        });
+      });
+    </script>
     <div id="footer" th:include="page :: copy"></div>
+
   </body>
 </html>

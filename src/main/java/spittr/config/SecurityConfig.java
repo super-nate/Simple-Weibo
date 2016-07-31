@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
@@ -69,12 +70,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .realmName("Spittr")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").authenticated()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/resources/**").permitAll()
+           /*     .antMatchers("/").authenticated()
                 .antMatchers("/spitter/me").authenticated()
-                .antMatchers(HttpMethod.POST, "/spittles").authenticated()
+                .antMatchers(HttpMethod.POST, "/spittles").authenticated()*/
                 .antMatchers("/spitter/supermanheng27")
                 .access("isAuthenticated() and principal.username=='supermanheng27'")
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
     }
 
 /*  @Override

@@ -17,7 +17,7 @@ public class Spittle {
     private Long id;
 
     @NotNull
-    @Size(min=5, max=140, message="can't be empty")
+    @Size(min=5, max=140, message="can't be empty or less than 5")
     private String message;
 
     @Column(name = "created_at")
