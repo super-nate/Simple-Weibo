@@ -1,5 +1,6 @@
 package spittr.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Spittle {
+public class Spittle implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

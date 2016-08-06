@@ -12,6 +12,7 @@ import spittr.config.RootConfig.WebPackage;
 
 @Configuration
 @Import(DataConfig.class)
+@ImportResource("classpath:messaging.xml")
 @ComponentScan(basePackages={"spittr"}, 
     excludeFilters={
         @Filter(type=FilterType.CUSTOM, value=WebPackage.class)

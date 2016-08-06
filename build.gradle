@@ -13,7 +13,9 @@ apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
 
 dependencies {
+
   compile "org.springframework:spring-webmvc:$springVersion"
+  compile "org.springframework:spring-jms:$springVersion"
   compile "org.springframework:spring-jdbc:$springVersion"
   compile "org.springframework.security:spring-security-config:$springSecurityVersion"
   compile "org.springframework.security:spring-security-web:$springSecurityVersion"
@@ -34,6 +36,10 @@ dependencies {
   compile group: 'org.liquibase', name: 'liquibase-core', version: '3.4.1'
   compile "net.sf.ehcache:ehcache:$ehcacheVersion"
   compile "net.sf.ehcache:ehcache-jcache:$ehcacheJCacheVersion"
+
+  compile "org.apache.activemq:activemq-spring:$activeMQVersion"
+  compile "org.apache.activemq:activemq-core:$activeMQVersion"
+  compile "org.apache.xbean:xbean-spring:3.7"
 
   compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
