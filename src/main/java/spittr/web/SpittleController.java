@@ -1,11 +1,15 @@
 package spittr.web;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 import spittr.entity.Spitter;
 import spittr.entity.Spittle;
 import spittr.entity.SpittleForm;
@@ -66,7 +71,7 @@ public class SpittleController {
     public String spittles(
             @RequestParam(value = "page",
                     defaultValue = "1") int page, @RequestParam(value = "pageSize",
-            defaultValue = PAGE_SIZE) int pageSize, Model model) {
+            defaultValue = PAGE_SIZE) int pageSize, Model model, HttpSession sessionObj) {
 
         List<Spittle> list = spittleManager.findByPage(pageSize, page);
 
@@ -128,6 +133,32 @@ public class SpittleController {
             profilePicture.transferTo(new File("/spittles/" + id + ".jpg"));
         }
         return "redirect:/spittles";
+    }
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST, consumes="application/json", produces ="application/json")
+    public ResponseEntity<Spittle> saveSpittle(@RequestBody Spittle spittle, UriComponentsBuilder ucb) throws Exception {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        Spitter spitter = spitterManager.findByUsername(name);
+
+        spittle.setSpitter(spitter);
+
+        Long id = spittleManager.save(spittle).getId();
+
+        HttpHeaders headers = new HttpHeaders();
+        URI locationUri =
+                ucb.path("/api/spittles/")
+                        .path(String.valueOf(id))
+                        .build()
+                        .toUri();
+        headers.setLocation(locationUri);
+        ResponseEntity<Spittle> responseEntity =
+                new ResponseEntity<Spittle>(
+                        spittle, headers, HttpStatus.CREATED);
+        return responseEntity;
     }
 
 /*    @ExceptionHandler(IllegalArgumentException.class)

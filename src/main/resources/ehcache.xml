@@ -2,5 +2,6 @@
   <cache name="spittleCache"
           maxBytesLocalHeap="50m"
           timeToLiveSeconds="100">
+    <searchable/>
   </cache>
 </ehcache>

@@ -19,7 +19,7 @@ import spittr.config.RootConfig.WebPackage;
 public class RootConfig {
   public static class WebPackage extends RegexPatternTypeFilter {
     public WebPackage() {
-      super(Pattern.compile("spittr\\.web"));
+      super(Pattern.compile("spittr\\.(web|api)"));
     }    
   }
 
