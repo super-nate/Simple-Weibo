@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "Spittle")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE/*, region = "Spittle"*/)
 public class Spitter {
 
     @Id
@@ -49,7 +49,7 @@ public class Spitter {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "spitter", cascade = CascadeType.ALL)
     @OrderBy("created_at DESC")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "Spittle")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE/*, region = "Spittle"*/)
     private List<Spittle> spittles;
 
     public Spitter() {
