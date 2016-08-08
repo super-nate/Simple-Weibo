@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +37,9 @@ public class SpittleController {
     private SpittleManager spittleManager;
 
     private SpitterManager spitterManager;
+
+    @Autowired
+    private Logger log;
 
     @Autowired
     public SpittleController(SpittleManager spittleManager, SpitterManager spitterManager) {
@@ -111,6 +115,7 @@ public class SpittleController {
     public String spittle(
             @PathVariable("spittleId") long spittleId,
             Model model) {
+        log.info("I am in controller");
         model.addAttribute(spittleManager.findOne(spittleId));
         return "spittle";
     }
