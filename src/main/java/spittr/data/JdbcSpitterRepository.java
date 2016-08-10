@@ -40,7 +40,7 @@ public class JdbcSpitterRepository implements SpitterRepository {
         return (Spitter) currentSession()
                 .createCriteria(Spitter.class)
                 .setCacheable(true)
-                .setCacheRegion("Spittle")
+                //.setCacheRegion("Spittle")
                 .add(Restrictions.eq("username", username))
                 .list().get(0);
     }

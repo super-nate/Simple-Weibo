@@ -10,7 +10,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "Spittle")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE/*, region = "Spittle"*/)
 public class Spittle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

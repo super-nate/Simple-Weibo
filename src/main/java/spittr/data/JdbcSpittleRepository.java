@@ -78,7 +78,7 @@ public class JdbcSpittleRepository implements SpittleRepository {
     return currentSession()
             .createCriteria(Spittle.class)
                     .setCacheable(true)
-                    .setCacheRegion("Spittle")
+                    //.setCacheRegion("Spittle")
                     .addOrder(Order.desc("time"));
   }
 
