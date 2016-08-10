@@ -1,7 +1,19 @@
 <ehcache>
+  <sizeOfPolicy maxDepth="100" maxDepthExceededBehavior="abort"/>
+
   <cache name="spittleCache"
           maxBytesLocalHeap="50m"
           timeToLiveSeconds="100">
     <searchable/>
   </cache>
+
+  <cache name="SimplePageCachingFilter"
+         maxEntriesLocalHeap="1000"
+         maxEntriesLocalDisk="1000"
+         eternal="false"
+         overflowToDisk="true"
+         timeToIdleSeconds="300"
+         timeToLiveSeconds="600"
+         memoryStoreEvictionPolicy="LFU"
+  />
 </ehcache>

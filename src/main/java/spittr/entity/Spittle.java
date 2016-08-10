@@ -3,6 +3,7 @@ package spittr.entity;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.sf.ehcache.pool.sizeof.annotations.IgnoreSizeOf;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@IgnoreSizeOf
 public class Spittle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

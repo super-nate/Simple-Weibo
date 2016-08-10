@@ -16,6 +16,10 @@
     </logger>
 
     <!-- 3rdparty Loggers -->
+    <logger name="net.sf.ehcache.constructs.web">
+        <level value="debug"/>
+    </logger>
+
     <logger name="org.springframework.core">
         <level value="debug"/>
     </logger>
